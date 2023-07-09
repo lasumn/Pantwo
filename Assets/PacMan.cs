@@ -22,11 +22,6 @@ public class PacMan : MonoBehaviour
         {
             Destroy(other.gameObject);
 
-            if (GameObject.FindGameObjectsWithTag("Coin").Length - 1 == 0)
-            {
-                UnityEditor.EditorApplication.isPlaying = false;
-            }
-
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DualPantoFramework;
 using SpeechIO;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -51,12 +52,23 @@ public class GameManager : MonoBehaviour
     void Update()
     {
 
+        //handle certain checks, but not every frame.
         switchTimer++;
-
         if (switchTimer > switchTimerMax) {
             switchTimer = 0;
+
+            //switch it-handle to closest ghost
             StartCoroutine( SwitchToClosestGhost() );
+
+
+            //check if wincons have been met
+            if (GameObject.FindGameObjectsWithTag("Coin").Length == 0)
+            {
+                StartCoroutine ( LoadNextScene() );
+            }
         }
+
+
 
     }
 
@@ -76,5 +88,10 @@ public class GameManager : MonoBehaviour
 
         yield return lowerHandle.SwitchTo(closestGhost);
 
+    }
+
+    IEnumerator LoadNextScene()
+    {
+        yield return SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }
