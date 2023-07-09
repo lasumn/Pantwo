@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DualPantoFramework;
+using SpeechIO;
 
 public class GameManager : MonoBehaviour
 {
@@ -14,17 +15,17 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private GameObject pacMan;
 
+    public SpeechOut speechOut = new SpeechOut();
 
-
+    // For Ghost-it-Handle tracking
     private GameObject[] ghosts; 
-
     private GameObject closestGhost;
-
-
     private int switchTimer;
-    private int switchTimerMax = 1000;
-
+    [SerializeField]
+    private int switchTimerMax;
     private float minDist;
+
+
 
     // Start is called before the first frame update
     IEnumerator Start()
@@ -43,8 +44,8 @@ public class GameManager : MonoBehaviour
 
         switchTimer = switchTimerMax;
 
-        
-    }
+        yield return speechOut.Speak("hello test 123");
+}
 
     // Update is called once per frame
     void Update()
@@ -56,9 +57,6 @@ public class GameManager : MonoBehaviour
             switchTimer = 0;
             StartCoroutine( SwitchToClosestGhost() );
         }
-        
-
-
 
     }
 
