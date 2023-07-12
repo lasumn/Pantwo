@@ -21,6 +21,8 @@ public class PacMan : MonoBehaviour
         if (other.CompareTag("Coin"))
         {
             Destroy(other.gameObject);
+            gameObject.GetComponent<GameManager>().RefreshClosestCoin();
+            Debug.Log("NOMNOMNOM");
 
         }
     }

@@ -23,19 +23,25 @@ public class GameManager : MonoBehaviour
     private GameObject closestGhost;
     private int switchTimer;
     [SerializeField]
-    private int switchTimerMax;
+    private int switchTimerMax = 500;
     private float minDist;
 
+    // For Coin-me-handle tracking
+
+    private GameObject[] coins;
+    private GameObject closestCoin;
+
+    private float yeetSpeed = 10f;
 
 
     // Start is called before the first frame update
-    IEnumerator Start()
+    async void Start()
     {
         upperHandle = GameObject.Find("Panto").GetComponent<UpperHandle>();
-        yield return upperHandle.MoveToPosition(spawnPoint.transform.position);
+        await upperHandle.MoveToPosition(spawnPoint.transform.position);
 
         lowerHandle = GameObject.Find("Panto").GetComponent<LowerHandle>();
-        yield return lowerHandle.MoveToPosition(spawnPoint.transform.position);
+        await lowerHandle.MoveToPosition(spawnPoint.transform.position);
         //lowerHandle.Freeze();
 
 
@@ -43,36 +49,49 @@ public class GameManager : MonoBehaviour
 
         closestGhost = GameObject.Find("Ghost");
 
+        coins = GameObject.FindGameObjectsWithTag("Coin");
+
+        closestCoin = GameObject.Find("Coin");
+
         switchTimer = switchTimerMax;
 
-        yield return speechOut.Speak("hello test 123");
+        await speechOut.Speak("hello test 123");
 }
 
     // Update is called once per frame
     void Update()
     {
-
         //handle certain checks, but not every frame.
         switchTimer++;
         if (switchTimer > switchTimerMax) {
             switchTimer = 0;
 
             //switch it-handle to closest ghost
-            StartCoroutine( SwitchToClosestGhost() );
+            SwitchToClosestGhost();
 
+            RefreshClosestCoin();
 
             //check if wincons have been met
             if (GameObject.FindGameObjectsWithTag("Coin").Length == 0)
             {
-                StartCoroutine ( LoadNextScene() );
+                LoadNextScene();
             }
         }
 
+        //joinked from @lapesi
+        Vector2 vector2 = new Vector2(pacMan.transform.position.x - closestCoin.transform.position.x, closestCoin.transform.position.z - pacMan.transform.position.z);
+        float yRotation = Vector2.SignedAngle(Vector2.up, vector2);
+        //set upper handle y rotation to look towards the hole
+        upperHandle.Rotate(yRotation);
+
+        Debug.Log(upperHandle.gameObject.transform.position.x);
+
+        Debug.Log(closestCoin.name);
 
 
     }
 
-    IEnumerator SwitchToClosestGhost()
+    async void SwitchToClosestGhost()
     {
         minDist = float.MaxValue;
 
@@ -86,12 +105,28 @@ public class GameManager : MonoBehaviour
 
         }
 
-        yield return lowerHandle.SwitchTo(closestGhost);
+        await lowerHandle.SwitchTo(closestGhost,yeetSpeed);
 
     }
 
-    IEnumerator LoadNextScene()
+    public void RefreshClosestCoin()
     {
-        yield return SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
+        coins = GameObject.FindGameObjectsWithTag("Coin");
+
+        foreach (GameObject coin in coins)
+        {
+            if (Vector3.Distance(coin.transform.position, pacMan.transform.position) < minDist)
+            {
+                minDist = Vector3.Distance(coin.transform.position, pacMan.transform.position);
+                closestCoin = coin;
+            }
+
+        }
+
+    }
+
+    void LoadNextScene()
+    {
+        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }
