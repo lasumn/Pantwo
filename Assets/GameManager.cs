@@ -31,6 +31,13 @@ public class GameManager : MonoBehaviour
     private GameObject[] coins;
     private GameObject closestCoin;
 
+
+    //for Ghost-Pathfinding
+
+    
+
+
+
     private float yeetSpeed = 10f;
 
 
@@ -55,7 +62,9 @@ public class GameManager : MonoBehaviour
 
         switchTimer = switchTimerMax;
 
-        await speechOut.Speak("hello test 123");
+        
+
+    await speechOut.Speak("hello test 123");
 }
 
     // Update is called once per frame
@@ -84,12 +93,11 @@ public class GameManager : MonoBehaviour
         //set upper handle y rotation to look towards the hole
         upperHandle.Rotate(yRotation);
 
-        Debug.Log(upperHandle.gameObject.transform.position.x);
+        //Debug.Log(upperHandle.gameObject.transform.position.x);
 
-        Debug.Log(closestCoin.name);
-
-
+        //Debug.Log(closestCoin.name);
     }
+
 
     async void SwitchToClosestGhost()
     {
@@ -129,4 +137,10 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
     }
+
+
+    
+
+
+
 }
