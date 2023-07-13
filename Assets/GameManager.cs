@@ -52,6 +52,11 @@ public class GameManager : MonoBehaviour
         _ = lowerHandle.MoveToPosition(spawnPoint.transform.position);
         //lowerHandle.Freeze();
 
+        // disable god object collider
+        GameObject mhgo = GameObject.Find("MeHandleGodObject");
+        mhgo.GetComponent<Collider>().enabled = false;
+        GameObject ihgo = GameObject.Find("ItHandleGodObject");
+        ihgo.GetComponent<Collider>().enabled = false;
 
         ghosts = GameObject.FindGameObjectsWithTag("Ghost");
 
