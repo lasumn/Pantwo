@@ -14,7 +14,7 @@ public class NodeVisualization : MonoBehaviour
     void Start()
     {
          //subscribe to list loaded event
-         navigator = GetComponent<Navigator>();
+        navigator = GetComponent<Navigator>();
         navigator.listLoadedEvent.AddListener(DrawNodes);
     }
 
