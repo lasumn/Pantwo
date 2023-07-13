@@ -31,14 +31,19 @@ public class GameManager : MonoBehaviour
     private GameObject[] coins;
     private GameObject closestCoin;
 
-    private float yeetSpeed = 10f;
-
 
     // Start is called before the first frame update
     async void Start()
     {
         upperHandle = GameObject.Find("Panto").GetComponent<UpperHandle>();
         await upperHandle.MoveToPosition(spawnPoint.transform.position);
+
+
+        // disable god object collider
+        GameObject mhgo = GameObject.Find("MeHandleGodObject");
+        mhgo.GetComponent<Collider>().enabled = false;
+        GameObject ihgo = GameObject.Find("ItHandleGodObject");
+        ihgo.GetComponent<Collider>().enabled = false;
 
         lowerHandle = GameObject.Find("Panto").GetComponent<LowerHandle>();
         await lowerHandle.MoveToPosition(spawnPoint.transform.position);
@@ -56,27 +61,25 @@ public class GameManager : MonoBehaviour
         switchTimer = switchTimerMax;
 
         await speechOut.Speak("hello test 123");
-}
+    }
+
+    void FixedUpdate(){
+        
+        SwitchToClosestGhost();
+        RefreshClosestCoin();
+
+        //check if wincons have been met
+        if (GameObject.FindGameObjectsWithTag("Coin").Length == 0)
+        {
+            LoadNextScene();
+        }
+    }
+
+
 
     // Update is called once per frame
     void Update()
     {
-        //handle certain checks, but not every frame.
-        switchTimer++;
-        if (switchTimer > switchTimerMax) {
-            switchTimer = 0;
-
-            //switch it-handle to closest ghost
-            SwitchToClosestGhost();
-
-            RefreshClosestCoin();
-
-            //check if wincons have been met
-            if (GameObject.FindGameObjectsWithTag("Coin").Length == 0)
-            {
-                LoadNextScene();
-            }
-        }
 
         //joinked from @lapesi
         Vector2 vector2 = new Vector2(pacMan.transform.position.x - closestCoin.transform.position.x, closestCoin.transform.position.z - pacMan.transform.position.z);
@@ -84,9 +87,9 @@ public class GameManager : MonoBehaviour
         //set upper handle y rotation to look towards the hole
         upperHandle.Rotate(yRotation);
 
-        Debug.Log(upperHandle.gameObject.transform.position.x);
+        //Debug.Log(upperHandle.gameObject.transform.position.x);
 
-        Debug.Log(closestCoin.name);
+        //Debug.Log(closestCoin.name);
 
 
     }
@@ -105,7 +108,7 @@ public class GameManager : MonoBehaviour
 
         }
 
-        await lowerHandle.SwitchTo(closestGhost,yeetSpeed);
+        await lowerHandle.SwitchTo(closestGhost, 10f);
 
     }
 
@@ -122,7 +125,6 @@ public class GameManager : MonoBehaviour
             }
 
         }
-
     }
 
     void LoadNextScene()
