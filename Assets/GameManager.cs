@@ -4,6 +4,7 @@ using UnityEngine;
 using DualPantoFramework;
 using SpeechIO;
 using UnityEngine.SceneManagement;
+using System.Runtime.CompilerServices;
 
 public class GameManager : MonoBehaviour
 {
@@ -34,7 +35,7 @@ public class GameManager : MonoBehaviour
 
     //for Ghost-Pathfinding
 
-    
+    private bool isInit = false;
 
 
 
@@ -42,13 +43,13 @@ public class GameManager : MonoBehaviour
 
 
     // Start is called before the first frame update
-    async void Start()
+    void Start()
     {
         upperHandle = GameObject.Find("Panto").GetComponent<UpperHandle>();
-        await upperHandle.MoveToPosition(spawnPoint.transform.position);
+        _ = upperHandle.MoveToPosition(spawnPoint.transform.position);
 
         lowerHandle = GameObject.Find("Panto").GetComponent<LowerHandle>();
-        await lowerHandle.MoveToPosition(spawnPoint.transform.position);
+        _ = lowerHandle.MoveToPosition(spawnPoint.transform.position);
         //lowerHandle.Freeze();
 
 
@@ -64,12 +65,16 @@ public class GameManager : MonoBehaviour
 
         
 
-    await speechOut.Speak("hello test 123");
-}
+        _ = speechOut.Speak("hello test 123");
+
+        isInit = true;
+    }
 
     // Update is called once per frame
     void Update()
     {
+        if (!isInit) return;
+
         //handle certain checks, but not every frame.
         switchTimer++;
         if (switchTimer > switchTimerMax) {
@@ -87,6 +92,7 @@ public class GameManager : MonoBehaviour
             }
         }
 
+        Debug.Log(closestCoin.name);
         //joinked from @lapesi
         Vector2 vector2 = new Vector2(pacMan.transform.position.x - closestCoin.transform.position.x, closestCoin.transform.position.z - pacMan.transform.position.z);
         float yRotation = Vector2.SignedAngle(Vector2.up, vector2);

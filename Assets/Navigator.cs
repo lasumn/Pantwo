@@ -1,76 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using static BFS;
+using UnityEngine.Events;
 
-
-
-public class BFS
-{
-    public class Graph
-    {
-        public LinkedList<int>[] adj;
-        public int Size;
-    }
-
-    public static List<int> FindShortestPath(Graph G, int startVert, int targetVert)
-    {
-        bool[] visited = new bool[G.Size];
-        int[] previous = new int[G.Size];
-        System.Collections.Generic.Queue<int> q = new System.Collections.Generic.Queue<int>();
-
-        visited[startVert] = true;
-        previous[startVert] = -1;
-
-        q.Enqueue(startVert);
-
-        while (q.Count > 0)
-        {
-            int v = q.Dequeue();
-
-            if (v == targetVert)
-            {
-                // Reconstruct the shortest path
-                return ReconstructPath(previous, startVert, targetVert);
-            }
-
-            foreach (int adjV in G.adj[v])
-            {
-                if (!visited[adjV])
-                {
-                    visited[adjV] = true;
-                    previous[adjV] = v;
-                    q.Enqueue(adjV);
-                }
-            }
-        }
-
-        // No path found
-        return null;
-    }
-
-    public static List<int> ReconstructPath(int[] previous, int startVert, int targetVert)
-    {
-        List<int> path = new List<int>();
-
-        int current = targetVert;
-        while (current != -1)
-        {
-            path.Add(current);
-            current = previous[current];
-        }
-
-        path.Reverse();
-
-        return path;
-    }
-}
 
 public class Navigator : MonoBehaviour
 {
+    [SerializeField]
+    [Range(0f, 5f)]
+    private float nodeConnectionRange;
 
     private GameObject[] nodes;
 
-    private Vector3[] nodesPos;
+    public Vector3[] nodesPos;
 
     private GameObject[] ghosts;
 
@@ -78,7 +22,10 @@ public class Navigator : MonoBehaviour
 
     private bool[] isMoving;              // for each Ghost, if its currently trying to move to a node
 
-    private LinkedList<int>[] adjList;
+    public LinkedList<int>[] adjList;
+
+    // list loaded event
+    public UnityEvent listLoadedEvent;
 
     // Start is called before the first frame update
     void Start()
@@ -92,7 +39,7 @@ public class Navigator : MonoBehaviour
 
         isMoving = new bool[ghosts.Length];
 
-        nodesPos = new Vector3[ghosts.Length];
+        nodesPos = new Vector3[nodes.Length];
 
         adjList = new LinkedList<int>[nodes.Length];
 
@@ -122,8 +69,11 @@ public class Navigator : MonoBehaviour
             adjList[i] = findAdj(i);
         }
 
+        listLoadedEvent.Invoke();
 
-        List<int> testList = BFS.FindShortestPath(new BFS.Graph(adjList,adjList.Count() ), 2, 5);
+
+        List<int> testList = BFS.FindShortestPath(new BFS.Graph(adjList,adjList.Length), 2, 5);
+
 
         Debug.Log(testList);
     }
@@ -171,7 +121,7 @@ public class Navigator : MonoBehaviour
         {
             if (i != index)
             {
-                if ((nodesPos[i] - nodesPos[index]).magnitude < 100)
+                if ((nodesPos[i] - nodesPos[index]).magnitude < nodeConnectionRange)
                 {
                     adj.AddLast(i);
                 }
