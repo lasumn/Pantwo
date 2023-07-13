@@ -56,7 +56,7 @@ public class GameManager : MonoBehaviour
         GameObject mhgo = GameObject.Find("MeHandleGodObject");
         mhgo.GetComponent<Collider>().enabled = false;
         GameObject ihgo = GameObject.Find("ItHandleGodObject");
-        ihgo.GetComponent<Collider>().enabled = false;
+        ihgo.GetComponent<Collider>().enabled = false; //Julian thingz.?
 
         ghosts = GameObject.FindGameObjectsWithTag("Ghost");
 
@@ -70,7 +70,7 @@ public class GameManager : MonoBehaviour
 
         
 
-        _ = speechOut.Speak("hello test 123");
+        //_ = speechOut.Speak("hello test 123");
 
         isInit = true;
     }
@@ -97,7 +97,6 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        Debug.Log(closestCoin.name);
         //joinked from @lapesi
         Vector2 vector2 = new Vector2(pacMan.transform.position.x - closestCoin.transform.position.x, closestCoin.transform.position.z - pacMan.transform.position.z);
         float yRotation = Vector2.SignedAngle(Vector2.up, vector2);
@@ -141,6 +140,16 @@ public class GameManager : MonoBehaviour
             }
 
         }
+
+    }
+
+    public void RefreshClosestCoinTEST()
+    {
+        for (int k=0; k<1000; k++)
+        {
+            Debug.Log("KEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEK");
+        }
+        
 
     }
 

@@ -12,56 +12,46 @@ public class Navigator : MonoBehaviour
     [Range(0f, 5f)]
     private float nodeConnectionRange;
 
-    private GameObject[] nodes;
+    public GameObject[] nodes;
 
     public Vector3[] nodesPos;
 
     private GameObject[] ghosts;
 
-    private int[] movingTowardsNodeIndex; // for each Ghost, which Node Index it currently moving towards
-
-    private bool[] isMoving;              // for each Ghost, if its currently trying to move to a node
+    private int[] startingAtNodeIndex; // for each Ghost, which Node Index it currently moving towards              // for each Ghost, if its currently trying to move to a node
 
     public LinkedList<int>[] adjList;
 
     // list loaded event
     public UnityEvent listLoadedEvent;
 
+    public int closestPacManIndex;
+
+    private GameObject pacMan;
+
     // Start is called before the first frame update
     void Start()
     {
-
+        pacMan = GameObject.FindGameObjectWithTag("PacMan");
         nodes = GameObject.FindGameObjectsWithTag("Node");
-
         ghosts = GameObject.FindGameObjectsWithTag("Ghost");
 
-        movingTowardsNodeIndex = new int[ghosts.Length];
+        closestPacManIndex = FindClosestNodeIndex(pacMan);
 
-        isMoving = new bool[ghosts.Length];
-
+        startingAtNodeIndex = new int[ghosts.Length];
         nodesPos = new Vector3[nodes.Length];
-
         adjList = new LinkedList<int>[nodes.Length];
-
-
-
-
-
-        for (int i = 0; i < isMoving.Length; i++)
-        {
-            isMoving[i] = true;
-        }
 
         for (int i = 0; i < nodesPos.Length; i++)
         {
             nodesPos[i] = nodes[i].transform.position;
         }
 
-        for (int i = 0; i < movingTowardsNodeIndex.Length; i++)
+        for (int i = 0; i < startingAtNodeIndex.Length; i++)
         {
-            movingTowardsNodeIndex[i] = FindClosestNodeIndex(ghosts[i]);
-
-            ghosts[i].transform.position = nodes[movingTowardsNodeIndex[i]].transform.position;
+            startingAtNodeIndex[i] = FindClosestNodeIndex(ghosts[i]);
+            ghosts[i].GetComponent<Ghost>().startIndex = startingAtNodeIndex[i];
+            ghosts[i].transform.position = nodes[startingAtNodeIndex[i]].transform.position;
         }
 
         for (int i = 0; i < adjList.Length; i++)
@@ -71,32 +61,23 @@ public class Navigator : MonoBehaviour
 
         listLoadedEvent.Invoke();
 
-
-        List<int> testList = BFS.FindShortestPath(new BFS.Graph(adjList,adjList.Length), 2, 5);
-
-
-        Debug.Log(testList);
     }
 
     // Update is called once per frame
     void Update()
     {
- 
+        closestPacManIndex = FindClosestNodeIndex(pacMan);
+
     }
-
-
-
-    void MoveGhostToNode(GameObject ghost, GameObject node)
+    public void MoveGhostToNode(GameObject ghost, GameObject node)
     {
         Vector3 temp = new Vector3();
 
         temp = (node.transform.position - ghost.transform.position);
         temp.Normalize();
         ghost.transform.position += temp / 50;
-
     }
-
-    int FindClosestNodeIndex(GameObject ghost)
+    int FindClosestNodeIndex(GameObject ghost) //or PacMan I guess
     {
         int ir = -1;
 
@@ -112,7 +93,6 @@ public class Navigator : MonoBehaviour
         }
         return ir;
     }
-
     LinkedList<int> findAdj (int index)
     {
         LinkedList<int> adj = new LinkedList<int> ();
@@ -128,9 +108,22 @@ public class Navigator : MonoBehaviour
             }
 
         }
-
         return adj;
 
     }
+
+    public List<int> CalculateShortestPath(int startNodeIndex, int endNodeIndex)
+    {
+        if (startNodeIndex < 0 || startNodeIndex >= nodes.Length ||
+            endNodeIndex < 0 || endNodeIndex >= nodes.Length)
+        {
+            Debug.LogError("Invalid node index");
+            return null;
+        }
+
+        return BFS.FindShortestPath(new BFS.Graph(adjList, adjList.Length), startNodeIndex, endNodeIndex);
+    }
+
+
 
 }
