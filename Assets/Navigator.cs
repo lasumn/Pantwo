@@ -75,7 +75,7 @@ public class Navigator : MonoBehaviour
         List<int> testList = BFS.FindShortestPath(new BFS.Graph(adjList,adjList.Length), 2, 5);
 
 
-        Debug.Log(testList);
+        //Debug.Log(testList);
     }
 
     // Update is called once per frame

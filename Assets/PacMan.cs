@@ -24,23 +24,30 @@ public class PacMan : MonoBehaviour
     async void Move(){
         while(true){
             cur_node = next_node;
+            cur_node.GetComponent<Collider>().enabled = false;
 
             // Get available nodes
             List<GameObject> nodes = new List<GameObject>();
             foreach (GameObject node in GameObject.FindGameObjectsWithTag("Node")){
                 if (node == cur_node) {continue;}
+                node.GetComponent<Collider>().enabled = false;
                 Ray ray = new Ray(
                     cur_node.transform.position, 
-                    (cur_node.transform.position - node.transform.position).normalized
+                    (node.transform.position - cur_node.transform.position).normalized
                 );
                 RaycastHit hit;
-                bool a = Physics.Raycast(ray, out hit, (cur_node.transform.position - node.transform.position).magnitude);
+                int wall = LayerMask.GetMask("Wall");
+                bool a = Physics.Raycast(ray, out hit, (cur_node.transform.position - node.transform.position).magnitude, wall);
+                node.GetComponent<Collider>().enabled = true;
                 if(a){ continue; }
 
                 nodes.Add(node);
             }
 
-            Vector3 p = GameObject.Find("MeHandleGodObject").transform.position;
+            cur_node.GetComponent<Collider>().enabled = true;
+
+            //Vector3 p = GameObject.Find("MeHandle").transform.position;
+            Vector3 p = handle.HandlePosition(transform.position);
             float best_direction = float.MaxValue;
             next_node = nodes.Last();
 
