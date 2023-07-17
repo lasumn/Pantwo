@@ -22,7 +22,7 @@ public class Ghost : MonoBehaviour
 
 
     private int switchTimer;
-    private int switchTimerMax = 100;
+    private int switchTimerMax = 3;
 
     
 
@@ -30,22 +30,16 @@ public class Ghost : MonoBehaviour
 
     void Start()
     {
-
         switchTimer = switchTimerMax;
-
-
-
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!init && navigator.nodesPos != null && navigator.nodesPos.Length > 0)
+        if (++switchTimer > switchTimerMax)
         {
+            switchTimer = 0;
             path = navigator.CalculateShortestPath(startIndex, navigator.closestPacManIndex);
-            goingToIndex = path[0];
-            isMoving = true;
-            init = true;
         }
 
         if (DistanceToNode(goingToIndex) < distanceToNodeThreshold)
@@ -78,14 +72,6 @@ public class Ghost : MonoBehaviour
 
             }   
         }
-
-        switchTimer++;
-        if (switchTimer > switchTimerMax)
-        {
-            switchTimer = 0;
-            path = navigator.CalculateShortestPath(startIndex, navigator.closestPacManIndex);
-        }
-
 
     }
 

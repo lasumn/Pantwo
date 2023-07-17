@@ -45,6 +45,9 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        pacMan.GetComponent<Collider>().enabled = false;
+        pacMan.GetComponent<Rigidbody>().isKinematic = true;
+
         upperHandle = GameObject.Find("Panto").GetComponent<UpperHandle>();
         _ = upperHandle.MoveToPosition(spawnPoint.transform.position);
 
@@ -54,9 +57,9 @@ public class GameManager : MonoBehaviour
 
         // disable god object collider
         GameObject mhgo = GameObject.Find("MeHandleGodObject");
-        mhgo.GetComponent<Collider>().enabled = false;
+        //mhgo.GetComponent<Collider>().enabled = false;
         GameObject ihgo = GameObject.Find("ItHandleGodObject");
-        ihgo.GetComponent<Collider>().enabled = false; //Julian thingz.?
+        //ihgo.GetComponent<Collider>().enabled = false; //Julian thingz.?
 
         ghosts = GameObject.FindGameObjectsWithTag("Ghost");
 
@@ -68,9 +71,12 @@ public class GameManager : MonoBehaviour
 
         switchTimer = switchTimerMax;
 
-        
+
 
         //_ = speechOut.Speak("hello test 123");
+
+        pacMan.GetComponent<Collider>().enabled = true;
+        pacMan.GetComponent<Rigidbody>().isKinematic = false;
 
         isInit = true;
     }
