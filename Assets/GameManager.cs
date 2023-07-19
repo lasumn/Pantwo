@@ -37,6 +37,8 @@ public class GameManager : MonoBehaviour
 
     private bool isInit = false;
 
+    PantoCollider[] pantoColliders;
+
 
 
     private float yeetSpeed = 10f;
@@ -53,7 +55,7 @@ public class GameManager : MonoBehaviour
 
         lowerHandle = GameObject.Find("Panto").GetComponent<LowerHandle>();
         _ = lowerHandle.MoveToPosition(spawnPoint.transform.position);
-        //lowerHandle.Freeze();
+        lowerHandle.Freeze();
 
         // disable god object collider
         GameObject mhgo = GameObject.Find("MeHandleGodObject");
@@ -70,8 +72,6 @@ public class GameManager : MonoBehaviour
         closestCoin = GameObject.Find("Coin");
 
         switchTimer = switchTimerMax;
-
-
 
         //_ = speechOut.Speak("hello test 123");
 
@@ -94,7 +94,7 @@ public class GameManager : MonoBehaviour
             //switch it-handle to closest ghost
             SwitchToClosestGhost();
 
-            RefreshClosestCoin();
+            //RefreshClosestCoin();
 
             //check if wincons have been met
             if (GameObject.FindGameObjectsWithTag("Coin").Length == 0)
@@ -103,7 +103,11 @@ public class GameManager : MonoBehaviour
             }
         }
 
+        RefreshClosestCoin();
+
+
         //joinked from @lapesi
+
         Vector2 vector2 = new Vector2(pacMan.transform.position.x - closestCoin.transform.position.x, closestCoin.transform.position.z - pacMan.transform.position.z);
         float yRotation = Vector2.SignedAngle(Vector2.up, vector2);
         //set upper handle y rotation to look towards the hole
@@ -137,6 +141,8 @@ public class GameManager : MonoBehaviour
     {
         coins = GameObject.FindGameObjectsWithTag("Coin");
 
+        minDist = float.MaxValue;
+
         foreach (GameObject coin in coins)
         {
             if (Vector3.Distance(coin.transform.position, pacMan.transform.position) < minDist)
@@ -146,16 +152,6 @@ public class GameManager : MonoBehaviour
             }
 
         }
-
-    }
-
-    public void RefreshClosestCoinTEST()
-    {
-        for (int k=0; k<1000; k++)
-        {
-            Debug.Log("KEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEK");
-        }
-        
 
     }
 

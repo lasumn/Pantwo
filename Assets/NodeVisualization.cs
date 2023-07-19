@@ -20,6 +20,7 @@ public class NodeVisualization : MonoBehaviour
 
     private void DrawNodes()
     {
+        Debug.Log("Drawing nodes");
         if (showNodeConnections)
         {
             for (int i = 0; i < navigator.adjList.Length; i++)

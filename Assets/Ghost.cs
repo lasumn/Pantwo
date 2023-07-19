@@ -22,7 +22,7 @@ public class Ghost : MonoBehaviour
 
 
     private int switchTimer;
-    private int switchTimerMax = 3;
+    private int switchTimerMax = 200;
 
     
 

@@ -66,6 +66,7 @@ public class Navigator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        listLoadedEvent.Invoke();
         closestPacManIndex = FindClosestNodeIndex(pacMan);
 
     }
