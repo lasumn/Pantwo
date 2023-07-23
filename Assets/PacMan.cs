@@ -26,7 +26,7 @@ public class PacMan : MonoBehaviour
         if (other.CompareTag("Ghost"))
         {
             soundEffects.gameOver();
-            Destroy(gameObject);
+            Time.timeScale = 0;
             //RestartLevel();
         }
     }
