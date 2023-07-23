@@ -109,7 +109,7 @@ public class GameManager : MonoBehaviour
         //joinked from @lapesi
 
         Vector2 vector2 = new Vector2(pacMan.transform.position.x - closestCoin.transform.position.x, closestCoin.transform.position.z - pacMan.transform.position.z);
-        float yRotation = Vector2.SignedAngle(Vector2.up, vector2);
+        float yRotation = Vector2.SignedAngle(Vector2.up, -vector2);
         //set upper handle y rotation to look towards the hole
         upperHandle.Rotate(yRotation);
 
