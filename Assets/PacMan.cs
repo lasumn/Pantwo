@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using SpeechIO;
 using static GameManager;
+using UnityEngine.SceneManagement;
+
 
 public class PacMan : MonoBehaviour
 {
@@ -26,8 +28,14 @@ public class PacMan : MonoBehaviour
         if (other.CompareTag("Ghost"))
         {
             soundEffects.gameOver();
-            Destroy(gameObject);
+            Time.timeScale = 0;
+            Invoke("RestartLevel", 5f);
             //RestartLevel();
         }
+    }
+
+    private void RestartLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
