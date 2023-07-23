@@ -6,6 +6,7 @@ using SpeechIO;
 public class SoundEffects : MonoBehaviour
 {
     public AudioClip coinSound;
+    public AudioClip gameOverSound;
     private AudioSource audioSource;
 
 
@@ -18,5 +19,10 @@ public class SoundEffects : MonoBehaviour
     public void coinCollected()
     {
         audioSource.PlayOneShot(coinSound);
+    }
+
+    public void gameOver()
+    {
+        audioSource.PlayOneShot(gameOverSound);
     }
 }

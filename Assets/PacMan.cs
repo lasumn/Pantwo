@@ -22,5 +22,12 @@ public class PacMan : MonoBehaviour
             Destroy(other.gameObject);
             //RefreshClosestCoinTEST();
         }
+        
+        if (other.CompareTag("Ghost"))
+        {
+            soundEffects.gameOver();
+            Destroy(gameObject);
+            //RestartLevel();
+        }
     }
 }
