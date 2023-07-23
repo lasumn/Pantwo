@@ -625,6 +625,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57c0400a584f8fa478fd3844e8aa7007, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnPoint: {fileID: 1602418447}
 --- !u!1 &910596107
 GameObject:
   m_ObjectHideFlags: 0
@@ -1465,7 +1466,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 341baebe620a6ad4daac225d3e2f5fa2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnPoint: {fileID: 1602418447}
   pacMan: {fileID: 1037298202}
   switchTimerMax: 50
   navigator: {fileID: 624640014}

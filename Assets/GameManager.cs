@@ -11,8 +11,6 @@ public class GameManager : MonoBehaviour
 
     private UpperHandle upperHandle;
     private LowerHandle lowerHandle;
-    [SerializeField]
-    private GameObject spawnPoint;
 
     [SerializeField]
     private GameObject pacMan;
@@ -53,10 +51,10 @@ public class GameManager : MonoBehaviour
         pacMan.GetComponent<Rigidbody>().isKinematic = true;
 
         upperHandle = GameObject.Find("Panto").GetComponent<UpperHandle>();
-        _ = upperHandle.MoveToPosition(spawnPoint.transform.position);
+        //_ = upperHandle.MoveToPosition(spawnPoint.transform.position);
 
         lowerHandle = GameObject.Find("Panto").GetComponent<LowerHandle>();
-        _ = lowerHandle.MoveToPosition(spawnPoint.transform.position);
+        //_ = lowerHandle.MoveToPosition(spawnPoint.transform.position);
         //lowerHandle.Freeze();
 
         // disable god object collider
