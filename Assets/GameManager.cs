@@ -79,7 +79,6 @@ public class GameManager : MonoBehaviour
         pacMan.GetComponent<Rigidbody>().isKinematic = false;
 
         isInit = true;
-        testSwitch();
     }
 
     // Update is called once per frame
@@ -93,8 +92,7 @@ public class GameManager : MonoBehaviour
             switchTimer = 0;
 
             //switch it-handle to closest ghost
-            //SwitchToClosestGhost();
-            testSwitch();
+            SwitchToClosestGhost();
             //RefreshClosestCoin();
 
             //check if wincons have been met
@@ -125,10 +123,6 @@ public class GameManager : MonoBehaviour
         //Debug.Log(closestCoin.name);
     }
 
-    async void testSwitch()
-    {
-        await lowerHandle.SwitchTo(GameObject.Find("Ghost"), yeetSpeed);
-    }
     async void SwitchToClosestGhost()
     {
         Debug.Log("Switching to closest ghost");
