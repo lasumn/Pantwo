@@ -36,8 +36,6 @@ public class Navigator : MonoBehaviour
         nodes = GameObject.FindGameObjectsWithTag("Node");
         ghosts = GameObject.FindGameObjectsWithTag("Ghost");
 
-        closestPacManIndex = FindClosestNodeIndex(pacMan);
-
         startingAtNodeIndex = new int[ghosts.Length];
         nodesPos = new Vector3[nodes.Length];
         adjList = new LinkedList<int>[nodes.Length];
@@ -46,6 +44,8 @@ public class Navigator : MonoBehaviour
         {
             nodesPos[i] = nodes[i].transform.position;
         }
+
+        closestPacManIndex = FindClosestNodeIndex(pacMan); //fixed: run after nodesPos is initialized 
 
         for (int i = 0; i < startingAtNodeIndex.Length; i++)
         {
