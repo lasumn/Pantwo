@@ -111,6 +111,8 @@ public class GameManager : MonoBehaviour
         float yRotation = Vector2.SignedAngle(Vector2.up, -vector2);
         //set upper handle y rotation to look towards the hole
         upperHandle.Rotate(yRotation);
+
+
         GameObject test= GameObject.Find("ItHandleGodObject");
         //Vector2 vector22 = new Vector2(navigator.nodesPos[closestGhost.GetComponent<Ghost>().goingToIndex].x - lowerHandle.transform.position.x, lowerHandle.transform.position.z - navigator.nodesPos[closestGhost.GetComponent<Ghost>().goingToIndex].z);
         //Vector2 vector22 = new Vector2(test.transform.position.x - closestCoin.transform.position.x, closestCoin.transform.position.z - test.transform.position.z);
