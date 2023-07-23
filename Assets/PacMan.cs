@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using SpeechIO;
 using static GameManager;
+using UnityEngine.SceneManagement;
+
 
 public class PacMan : MonoBehaviour
 {
@@ -27,7 +29,13 @@ public class PacMan : MonoBehaviour
         {
             soundEffects.gameOver();
             Time.timeScale = 0;
+            Invoke("RestartLevel", 5f);
             //RestartLevel();
         }
+    }
+
+    private void RestartLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
