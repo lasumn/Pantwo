@@ -4,19 +4,34 @@ public class ObstacleManager : MonoBehaviour
 {
     PantoCollider[] pantoColliders;
 
+    Collider[] colliders;
+
     [SerializeField]
     private GameObject spawnPoint;
 
     PantoHandle upperHandle;
     PantoHandle lowerHandle;
 
-    void Start()
+    async void Start()
     {
-        upperHandle = GameObject.Find("Panto").GetComponent<UpperHandle>();
-        _ = upperHandle.MoveToPosition(spawnPoint.transform.position);
-
         lowerHandle = GameObject.Find("Panto").GetComponent<LowerHandle>();
-        _ = lowerHandle.MoveToPosition(spawnPoint.transform.position);
+        upperHandle = GameObject.Find("Panto").GetComponent<UpperHandle>();
+
+        lowerHandle.Freeze();
+        upperHandle.Freeze();
+
+        colliders = GameObject.FindObjectsOfType<BoxCollider>();
+
+        foreach (Collider collider in colliders)
+        {
+            collider.enabled = false;
+        }
+
+        
+        await upperHandle.MoveToPosition(spawnPoint.transform.position);
+
+   
+        await lowerHandle.MoveToPosition(spawnPoint.transform.position);
 
         pantoColliders = GameObject.FindObjectsOfType<PantoCollider>();
         foreach (PantoCollider collider in pantoColliders)
@@ -24,6 +39,14 @@ public class ObstacleManager : MonoBehaviour
             collider.CreateObstacle();
             collider.Enable();
         }
+
+        foreach (Collider collider in colliders)
+        {
+            collider.enabled = true;
+        }
+
+        lowerHandle.Free();
+        upperHandle.Free();
 
     }
 

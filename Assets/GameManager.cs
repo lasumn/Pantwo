@@ -82,7 +82,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!isInit) return;
+        //if (!isInit) return;
 
         //handle certain checks, but not every frame.
         switchTimer++;
@@ -94,11 +94,10 @@ public class GameManager : MonoBehaviour
             //RefreshClosestCoin();
 
             //check if wincons have been met
-            if (GameObject.FindGameObjectsWithTag("Coin").Length == 0)
-            {
-                LoadNextScene();
-            }
+            
         }
+
+       
 
         RefreshClosestCoin();
 
@@ -114,9 +113,12 @@ public class GameManager : MonoBehaviour
         GameObject test= GameObject.Find("ItHandleGodObject");
         //Vector2 vector22 = new Vector2(navigator.nodesPos[closestGhost.GetComponent<Ghost>().goingToIndex].x - lowerHandle.transform.position.x, lowerHandle.transform.position.z - navigator.nodesPos[closestGhost.GetComponent<Ghost>().goingToIndex].z);
         //Vector2 vector22 = new Vector2(test.transform.position.x - closestCoin.transform.position.x, closestCoin.transform.position.z - test.transform.position.z);
-        Vector2 vector22 = new Vector2(test.transform.position.x - navigator.nodesPos[closestGhost.GetComponent<Ghost>().goingToIndex].x, navigator.nodesPos[closestGhost.GetComponent<Ghost>().goingToIndex].z - test.transform.position.z);
-        float yRotation2 = Vector2.SignedAngle(Vector2.up, vector22);
-        lowerHandle.Rotate(yRotation2);
+        if (closestGhost != null) {
+            Vector2 vector22 = new Vector2(test.transform.position.x - navigator.nodesPos[closestGhost.GetComponent<Ghost>().goingToIndex].x, navigator.nodesPos[closestGhost.GetComponent<Ghost>().goingToIndex].z - test.transform.position.z);
+            float yRotation2 = Vector2.SignedAngle(Vector2.up, vector22);
+            lowerHandle.Rotate(yRotation2);
+        }
+        
 
         //Debug.Log(upperHandle.gameObject.transform.position.x);
 
@@ -125,6 +127,8 @@ public class GameManager : MonoBehaviour
 
     async void SwitchToClosestGhost()
     {
+        if (ghosts.Length == 0) return;
+
         Debug.Log("Switching to closest ghost");
         minDist = float.MaxValue;
 
@@ -157,9 +161,6 @@ public class GameManager : MonoBehaviour
         }
 
     }
-    void LoadNextScene()
-    {
-        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
-    }
+    
 
 }

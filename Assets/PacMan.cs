@@ -10,6 +10,8 @@ public class PacMan : MonoBehaviour
 {
     private SoundEffects soundEffects;
 
+    private bool isDead = false;
+
     void Start()
     {
         soundEffects = GetComponent<SoundEffects>();
@@ -25,10 +27,11 @@ public class PacMan : MonoBehaviour
             //RefreshClosestCoinTEST();
         }
         
-        if (other.CompareTag("Ghost"))
+        if (other.CompareTag("Ghost") && !isDead)
         {
+            isDead = true;
             soundEffects.gameOver();
-            Time.timeScale = 0;
+            //Time.timeScale = 0;
             Invoke("RestartLevel", 5f);
             //RestartLevel();
         }
