@@ -5,12 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class WinConLevel3 : MonoBehaviour
 {
+    private bool played = false;
+    private SoundEffects soundEffects;
     // Start is called before the first frame update
 
     private float passedTime = 0f;
     void Start()
     {
-
+        soundEffects = GetComponent<SoundEffects>();
     }
 
     // Update is called once per frame
@@ -21,7 +23,8 @@ public class WinConLevel3 : MonoBehaviour
         if ((CheckWinCondition()))
         {
             Debug.Log("Win condition met");
-            Invoke("LoadNextScene", 2f);
+            Invoke("PlayWinSound", 2f);
+            Invoke("LoadNextScene", 4f);
         }
     }
 
@@ -29,6 +32,15 @@ public class WinConLevel3 : MonoBehaviour
     {
         Debug.Log("Loading next scene");
         SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+
+    private void PlayWinSound()
+    {
+        if(!played)
+        {
+            soundEffects.win();
+            played = true;
+        }
     }
 
     private bool CheckWinCondition()
