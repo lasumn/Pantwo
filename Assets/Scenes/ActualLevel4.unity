@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 4996472}
   m_Layer: 0
   m_Name: Coins
-  m_TagString: Coin
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -188,7 +188,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pacMan: {fileID: 1037298202}
   switchTimerMax: 50
-  navigator: {fileID: 989457098}
+  navigator: {fileID: 0}
 --- !u!4 &41559875
 Transform:
   m_ObjectHideFlags: 0
@@ -389,7 +389,7 @@ GameObject:
   - component: {fileID: 171212234}
   m_Layer: 0
   m_Name: Coin (1)
-  m_TagString: Untagged
+  m_TagString: Coin
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -849,7 +849,7 @@ GameObject:
   - component: {fileID: 467746346}
   m_Layer: 0
   m_Name: Coin (3)
-  m_TagString: Untagged
+  m_TagString: Coin
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1434,7 +1434,7 @@ GameObject:
   - component: {fileID: 966211415}
   m_Layer: 0
   m_Name: Ghost
-  m_TagString: Untagged
+  m_TagString: Ghost
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1530,7 +1530,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startIndex: 0
   goingToIndex: 0
-  navigator: {fileID: 0}
+  navigator: {fileID: 989457098}
 --- !u!1 &974027588
 GameObject:
   m_ObjectHideFlags: 0
@@ -1591,7 +1591,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9af971cac06c7674c81c642ded1d72d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nodeConnectionRange: 1.05
+  nodeConnectionRange: 1.13
   nodes: []
   nodesPos: []
   listLoadedEvent:
@@ -1747,6 +1747,7 @@ Transform:
   - {fileID: 710863841}
   - {fileID: 307434897}
   - {fileID: 1042015089}
+  - {fileID: 1115160570}
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1769,7 +1770,7 @@ GameObject:
   - component: {fileID: 1037298211}
   m_Layer: 0
   m_Name: PacMan
-  m_TagString: Untagged
+  m_TagString: PacMan
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1858,7 +1859,7 @@ Transform:
   m_GameObject: {fileID: 1037298202}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.75, y: 1, z: 0.75}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
@@ -2041,9 +2042,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1089564363}
-  - component: {fileID: 1089564362}
   - component: {fileID: 1089564365}
   - component: {fileID: 1089564364}
+  - component: {fileID: 1089564362}
   m_Layer: 0
   m_Name: WinConChecker
   m_TagString: Untagged
@@ -2217,6 +2218,36 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1032967604}
   m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1115160569
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1115160570}
+  m_Layer: 0
+  m_Name: Node (26)
+  m_TagString: Node
+  m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1115160570
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1115160569}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.5, y: 0, z: -11.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1032967604}
+  m_RootOrder: 26
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1124891866
 GameObject:
@@ -2515,7 +2546,7 @@ GameObject:
   - component: {fileID: 1358525494}
   m_Layer: 0
   m_Name: Coin (2)
-  m_TagString: Untagged
+  m_TagString: Coin
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2765,7 +2796,7 @@ GameObject:
   - component: {fileID: 1510246631}
   m_Layer: 0
   m_Name: Coin
-  m_TagString: Untagged
+  m_TagString: Coin
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2965,7 +2996,7 @@ GameObject:
   - component: {fileID: 1672706737}
   m_Layer: 0
   m_Name: Ghost (1)
-  m_TagString: Untagged
+  m_TagString: Ghost
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2998,7 +3029,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startIndex: 0
   goingToIndex: 0
-  navigator: {fileID: 0}
+  navigator: {fileID: 989457098}
 --- !u!136 &1672706738
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -3355,7 +3386,7 @@ GameObject:
   - component: {fileID: 2072780044}
   m_Layer: 0
   m_Name: Ghosts
-  m_TagString: Ghost
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

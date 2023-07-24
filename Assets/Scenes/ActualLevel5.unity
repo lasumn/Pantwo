@@ -165,6 +165,7 @@ GameObject:
   - component: {fileID: 11039725}
   - component: {fileID: 11039724}
   - component: {fileID: 11039723}
+  - component: {fileID: 11039726}
   m_Layer: 0
   m_Name: Ghost (1)
   m_TagString: Ghost
@@ -249,6 +250,21 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 11039721}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &11039726
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 11039721}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e547f117688947499b2fb5327afb056, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startIndex: 0
+  goingToIndex: 0
+  navigator: {fileID: 1155850270}
 --- !u!1 &12153169
 GameObject:
   m_ObjectHideFlags: 0
@@ -4013,7 +4029,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57c0400a584f8fa478fd3844e8aa7007, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnPoint: {fileID: 0}
+  spawnPoint: {fileID: 267961210}
 --- !u!1 &896107250
 GameObject:
   m_ObjectHideFlags: 0
@@ -4400,6 +4416,7 @@ GameObject:
   - component: {fileID: 1037298208}
   - component: {fileID: 1037298210}
   - component: {fileID: 1037298209}
+  - component: {fileID: 1037298211}
   m_Layer: 0
   m_Name: PacMan
   m_TagString: PacMan
@@ -4623,6 +4640,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1037298211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1037298202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4481a503943cbc64985b135cfdea0501, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1050207514
 GameObject:
   m_ObjectHideFlags: 0
@@ -4997,7 +5026,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9af971cac06c7674c81c642ded1d72d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nodeConnectionRange: 0.6
+  nodeConnectionRange: 0.69
   nodes: []
   nodesPos: []
   listLoadedEvent:
@@ -6252,7 +6281,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 826605487606422808, guid: f08d327e9fb42f94d97ba9d1d226d418, type: 3}
       propertyPath: debug
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 826605487606422809, guid: f08d327e9fb42f94d97ba9d1d226d418, type: 3}
       propertyPath: m_Name

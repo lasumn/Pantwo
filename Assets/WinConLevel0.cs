@@ -1,16 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using SpeechIO;
 using UnityEngine.SceneManagement;
 
 public class WinConLevel0 : MonoBehaviour
 {
     private SoundEffects soundEffects;
     private bool played = false;
+    public GameManager gameManager;
     // Start is called before the first frame update
-    void Start()
+    async void Start()
     {
-        soundEffects = GetComponent<SoundEffects>();   
+        soundEffects = GetComponent<SoundEffects>();
+        
+        await gameManager.speechOut.Speak("Test hello whats");  
     }
 
     // Update is called once per frame
