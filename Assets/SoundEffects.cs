@@ -7,6 +7,7 @@ public class SoundEffects : MonoBehaviour
 {
     public AudioClip coinSound;
     public AudioClip gameOverSound;
+    public AudioClip winSound;
     private AudioSource audioSource;
 
 
@@ -24,5 +25,10 @@ public class SoundEffects : MonoBehaviour
     public void gameOver()
     {
         audioSource.PlayOneShot(gameOverSound);
+    }
+
+    public void win()
+    {
+        audioSource.PlayOneShot(winSound);
     }
 }
